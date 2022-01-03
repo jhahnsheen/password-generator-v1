@@ -11,46 +11,72 @@ var numChars = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9'];
 // Special characters
 var speChars = ['!', '@', '#', '$', '%', '^', '&', '*', '(', ')', '~', '`', '?', ';', ':', ',', '.', '[', ']', '{', '}', '/', '+', '=', '-'];
 
-// Select length of password
-var length = parseInt(prompt('How many characters would you like your password to contain?'));
 
-// Error message when password is not between 8 and 128 characters in length
-if(length < 8) {
-  alert('Password must have at least 8 characters.');
-  return null;
-} else if(length > 128) {
-  alert('Password cannot be longer than 128 characters.');
-  return null;
-} else {
-  length = length;
+// password option input function
+function askUser() {
+  // Select length of password
+  var length = parseInt(prompt('How many characters would you like your password to contain?'));
+
+  // Error message when password is not between 8 and 128 characters in length
+  if(length < 8) {
+    alert('Password must have at least 8 characters.');
+    return null;
+  } else if(length > 128) {
+    alert('Password cannot be longer than 128 characters.');
+    return null;
+  } else {
+    length = length;
+  }
+
+  // Ask about lowercase
+  var hasLowChars = confirm('Would you like to include lowercased characters? Click OK to confirm.');
+
+  // Ask about uppercase
+  var hasUpChars = confirm('Would you like to include uppercased characters? Click OK to confirm.');
+
+  // Ask about numeric
+  var hasNumChars = confirm('Would you like to include numerical characters? Click OK to confirm.');
+
+  // Ask about special
+  var hasSpeChars = confirm('Would you like to include special characters? Click OK to confirm.');
+
+  // Verify that there is at least one option selected
+  if(hasLowChars === false && hasUpChars === false && hasNumChars === false && hasSpeChars === false) {
+    alert('At least one option must be selected. Please try again');
+    return null;
+  }
+
+  // return an object with user's choices
+  var userObject = {
+    length: length,
+    hasLowChars: hasLowChars,
+    hasUpChars: hasUpChars,
+    hasNumChars: hasNumChars,
+    hasSpeChars: hasSpeChars,
+  }
+
+  return userObject;
 }
 
-// Ask about lowercase
-var hasLowChars = confirm('Would you like to include lowercased characters? Click OK to confirm.');
+// Function to make password
+function generatePassword() {
+  // Object holding users choices from function
+  var userChoices = askUser();
 
-// Ask about uppercase
-var hasUpChars = confirm('Would you like to include uppercased characters? Click OK to confirm.');
+  // Variable to hold the array with all possible arrays
 
-// Ask about numeric
-var hasNumChars = confirm('Would you like to include numerical characters? Click OK to confirm.');
+  // Variable to hold the array with all the selected items
 
-// Ask about special
-var hasSpeChars = confirm('Would you like to include special characters? Click OK to confirm.');
 
-// Verify that there is at least one option selected
-if(hasLowChars === false && hasUpChars === false && hasNumChars === false && hasSpeChars === false) {
-  alert('Password must contain at least one character type.');
-  return null;
+
+  // Validate password contents; need to contain at least one of each character so needs a validation
+
 }
-
-// Formula to make password
-
-// Validate password contents
 
 // Assignment Code (starting code)
 var generateBtn = document.querySelector("#generate");
 
-// Print password
+// Print password function
 // Write password to the #password input (starting code)
 function writePassword() {
   var password = generatePassword();
