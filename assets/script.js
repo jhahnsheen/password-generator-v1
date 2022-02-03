@@ -29,19 +29,19 @@ function askUser() {
   }
 
   // Ask about lowercase
-  var hasLowChars = confirm('Would you like to include lowercased characters? Click OK to confirm.');
+  var choiceLowLetters = confirm('Would you like to include lowercase characters? Click OK to confirm.');
 
   // Ask about uppercase
-  var hasUpChars = confirm('Would you like to include uppercased characters? Click OK to confirm.');
+  var choiceUpLetters = confirm('Would you like to include uppercase characters? Click OK to confirm.');
 
   // Ask about numeric
-  var hasNumChars = confirm('Would you like to include numerical characters? Click OK to confirm.');
+  var choiceNumChars = confirm('Would you like to include numerical characters? Click OK to confirm.');
 
   // Ask about special
-  var hasSpeChars = confirm('Would you like to include special characters? Click OK to confirm.');
+  var choiceSpeChars = confirm('Would you like to include special characters? Click OK to confirm.');
 
   // Verify that there is at least one option selected
-  if(hasLowChars === false && hasUpChars === false && hasNumChars === false && hasSpeChars === false) {
+  if(choiceLowLetters === false && choiceUpLetters === false && choiceNumChars === false && choiceSpeChars === false) {
     alert('At least one option must be selected. Please try again');
     return null;
   }
@@ -49,10 +49,10 @@ function askUser() {
   // return an object with user's choices
   var userObject = {
     length: length,
-    hasLowChars: hasLowChars,
-    hasUpChars: hasUpChars,
-    hasNumChars: hasNumChars,
-    hasSpeChars: hasSpeChars,
+    choiceLowLetters: choiceLowLetters,
+    choiceUpLetters: choiceUpLetters,
+    choiceNumChars: choiceNumChars,
+    choiceSpeChars: choiceSpeChars,
   }
 
   return userObject;
@@ -64,10 +64,39 @@ function generatePassword() {
   var userChoices = askUser();
 
   // Variable to hold the array with all possible arrays
+  var possibleChar = [];
 
   // Variable to hold the array with all the selected items
+  var selectChar = [];
 
+  // Variable to hold the array with the final password
+  var finalChars = [];
 
+  // Conditional statements to combine arrays that are selected and those that are not
+  if(userChoices.choiceLowLetters === true) {
+    possibleChar = possibleChar.concat(lowLetters);
+  }
+
+  if(userChoices.choiceUpLetters === true) {
+    possibleChar = possibleChar.concat(upLetters);
+  }
+
+  if(userChoices.choiceNumChars === true) {
+    possibleChar = possibleChar.concat(numChars);
+  }
+
+  if(userChoices.choiceSpeChars === true) {
+    possibleChar = possibleChar.concat(speChars);
+  }
+
+  // Loop to take random character from possibleChar to selectChar for the length of the password
+  for(let i = 0; i < userChoices.length; i++) {
+
+    finalChars.push(possibleChar);
+  }
+
+  // stringify array for return
+  return finalChars.join('');
 
   // Validate password contents; need to contain at least one of each character so needs a validation
 
