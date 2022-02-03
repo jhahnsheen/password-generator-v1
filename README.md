@@ -14,4 +14,10 @@ The image below shows an example of the functionality of the application after t
 
 <img src="./assets/images/20chardemo.png">
 
+## Links
+
+The repo containing the full code can be found [here](https://jhahnsheen.github.io/password-generator-v1/).
+
+Additionally, you can find the application deployed on GitHub pages [here](https://github.com/jhahnsheen/password-generator-v1).
+
 This web application is to be used for educational purposes only. 
