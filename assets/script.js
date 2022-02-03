@@ -44,7 +44,7 @@ function askUser() {
   if(choiceLowLetters === false && choiceUpLetters === false && choiceNumChars === false && choiceSpeChars === false) {
     alert('At least one option must be selected. Please try again');
     return null;
-  }
+  };
 
   // return an object with user's choices
   var userObject = {
@@ -53,7 +53,7 @@ function askUser() {
     choiceUpLetters: choiceUpLetters,
     choiceNumChars: choiceNumChars,
     choiceSpeChars: choiceSpeChars,
-  }
+  };
 
   return userObject;
 }
@@ -66,8 +66,11 @@ function generatePassword() {
   // Variable to hold the array with all possible arrays
   var possibleChar = [];
 
-  // Variable to hold the array with all the selected items
+  // Variable to hold the array with all the selected items from the failsafe
   var selectChar = [];
+
+  // Variable to hold the array with all the randomly selected items
+  var selectRand = [];
 
   // Variable to hold the array with the final password
   var finalChars = [];
@@ -75,31 +78,48 @@ function generatePassword() {
   // Conditional statements to combine arrays that are selected and those that are not
   if(userChoices.choiceLowLetters === true) {
     possibleChar = possibleChar.concat(lowLetters);
+    // get one random and put it in the final selection to guarantee that at least one of each type is in the final array
+    let rand = Math.floor(Math.random() * lowLetters.length);
+    let randLow = lowLetters[rand];
+    selectChar.push(randLow);
   }
 
   if(userChoices.choiceUpLetters === true) {
     possibleChar = possibleChar.concat(upLetters);
+
+    let rand = Math.floor(Math.random() * upLetters.length);
+    let randUp = upLetters[rand];
+    selectChar.push(randUp);
   }
 
   if(userChoices.choiceNumChars === true) {
     possibleChar = possibleChar.concat(numChars);
+
+    let rand = Math.floor(Math.random() * numChars.length);
+    let randNum = numChars[rand];
+    selectChar.push(randNum);
   }
 
   if(userChoices.choiceSpeChars === true) {
     possibleChar = possibleChar.concat(speChars);
+
+    let rand = Math.floor(Math.random() * speChars.length);
+    let randSpe = speChars[rand];
+    selectChar.push(randSpe);
+  }
+  
+  // Loop to take random character from possibleChar to selectChar for the length of the password minus the length of the array that is 
+  for(let i = 0; i < (userChoices.length - selectChar.length); i++) {
+    let rand = Math.floor(Math.random() * possibleChar.length);
+    let randAll = possibleChar[rand];
+    selectRand.push(randAll);
   }
 
-  // Loop to take random character from possibleChar to selectChar for the length of the password
-  for(let i = 0; i < userChoices.length; i++) {
-
-    finalChars.push(possibleChar);
-  }
+  // Combines the two selected arrays so that the final password has the appropriate number of characters and is guaranteed one of each character
+  finalChars = selectRand.concat(selectChar);
 
   // stringify array for return
   return finalChars.join('');
-
-  // Validate password contents; need to contain at least one of each character so needs a validation
-
 }
 
 // Assignment Code (starting code)
